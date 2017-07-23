@@ -1,6 +1,6 @@
 <?php
 /**
-events: OnManagerTopFrameHeaderHTMLBlock,OnManagerTopPrerender,OnManagerTreeInit
+events: OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender,OnManagerTreeInit
 config:
 &PrimaryColor=main Manager Color:;string;#499bea;;Theme Primary Color (mandatory) &NavBgColor= Nav Background color:;string;;;(optional) &NavLinkColor= Nav link color :;string;#e5eef5;;(optional) &NavLinkHColor= Nav link hover color:;string;#fff;;(optional) &NavDropBgHColor= Nav dropdown hover bg color:;string;;;(optional) &TreeBgColor= Tree Frame Background:;string;;;(optional) &TLinkColor=Tree Links Color:;string;;;Published resources and ElementsInTree element names (optional) &MainBgColor= Main Frame Background:;string;;;(optional) &MainLinkColor=Main Links Color:;string;;;(optional)
 
@@ -140,7 +140,7 @@ span.disabledPlugin > a > span.elementname {color: #b27979!important;}
 
 }
 $manager_theme = $modx->config['manager_theme'];
-if($manager_theme == "default") {
+if($manager_theme == "MODxRE2_DropdownMenu"||$manager_theme == "default") {
 $output .= $maincssOutput.$topcssOutput.$treecssOutput;
 }
 $e->output($output);
