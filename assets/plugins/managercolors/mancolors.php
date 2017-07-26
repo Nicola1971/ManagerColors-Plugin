@@ -1,18 +1,123 @@
 <?php
 /**
-events: OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender,OnManagerTreeInit
+events: OnManagerLoginFormPrerender,OnManagerTopFrameHeaderHTMLBlock,OnManagerTopPrerender,OnManagerTreeInit
 config:
-&PrimaryColor=main Manager Color:;string;#499bea;;Theme Primary Color (mandatory) &NavBgColor= Nav Background color:;string;;;(optional) &NavLinkColor= Nav link color :;string;#e5eef5;;(optional) &NavLinkHColor= Nav link hover color:;string;#fff;;(optional) &NavDropBgHColor= Nav dropdown hover bg color:;string;;;(optional) &TreeBgColor= Tree Frame Background:;string;;;(optional) &TLinkColor=Tree Links Color:;string;;;Published resources and ElementsInTree element names (optional) &MainBgColor= Main Frame Background:;string;;;(optional) &MainLinkColor=Main Links Color:;string;;;(optional)
+&PrimaryColor=main Manager Color:;string;#499bea;;Theme Primary Color (mandatory) &NavBgColor= Nav Background color:;string;;;(optional) &NavLinkColor= Nav link color :;string;#e5eef5;;(optional) &NavLinkHColor= Nav link hover color:;string;#fff;;(optional) &NavDropBgHColor= Nav dropdown hover bg color:;string;;;(optional) &TreeBgColor= Tree Frame Background:;string;;;(optional) &TLinkColor=Tree Links Color:;string;;;Published resources and ElementsInTree element names (optional) &MainBgColor= Main Frame Background:;string;;;(optional) &MainLinkColor=Main Links Color:;string;;;(optional) &ShowLoginLogo=Show Login Logo:;menu;show,hide;show;;Hide EVO logo in login page &CustomLogoPath=Custom Logo path:;string;;;enter the of your company logo &animate-login=Animate Login box:;menu;yes,no;yes;;Add a soft animation to the login box &CustomLoginStyle=Custom Login styles chunk:;string;;;chunk name &CustomNavStyle=Custom Top Frame styles chunk:;string;;;chunk name &CustomTreeStyle=Custom Tree Frame styles chunk:;string;;;chunk name &CustomMainStyle=Custom Main Frame styles chunk:;string;;;chunk name 
 
 **/
+global $modx;
 $output = "";
 $e = &$modx->Event;
 
-//Flat Skin */
+//Main Color */
 $PrimaryColor = isset($PrimaryColor) ? $PrimaryColor : '';
 $TreeLinksC = isset($TreeLinksC) ? $TreeLinksC : '';
 $NavBgColor = isset($NavBgColor) ? $NavBgColor : $PrimaryColor;
 $NavDropBgHColor = isset($NavDropBgHColor) ? $NavDropBgHColor : $PrimaryColor;
+/*****************login*************/
+$sitename = $modx->getPlaceholder('site_name');
+if($e->name == 'OnManagerLoginFormPrerender') {
+if ($CustomLogoPath !== '') {
+$logocustom = '<a class="logo" href="../" title="'.$sitename.'">
+					<img src="'.$CustomLogoPath.'" alt="'.$sitename.'" id="logocustom" />
+				</a>';
+}
+if ($animate-login == 'yes') {
+$animatedlogin ='  
+/* CSS Animations */
+.loginbox {width: 460px;
+    position: absolute;
+    left: 50%;
+    top: 25%;
+    margin-left: -250px;
+    margin-top: -75px;
+    -webkit-animation: login 1s ease-in-out;
+    -moz-animation: login 1s ease-in-out;
+    -ms-animation: login 1s ease-in-out;
+    -o-animation: login 1s ease-in-out;
+    animation: login 1s ease-in-out;
+}
+@keyframes "login" {
+ 0% {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    filter: alpha(opacity=0);
+    opacity: 0;
+    margin-top: -50px;
+ }
+ 100% {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+    filter: alpha(opacity=100);
+    opacity: 1;
+    margin-top: -75px;
+ }
+}
+@-moz-keyframes login {
+ 0% {
+   filter: alpha(opacity=0);
+   opacity: 0;
+   margin-top: -50px;
+ }
+ 100% {
+   filter: alpha(opacity=100);
+   opacity: 1;
+   margin-top: -75px;
+ }
+}
+@-webkit-keyframes "login" {
+ 0% {
+   filter: alpha(opacity=0);
+   opacity: 0;
+   margin-top: -50px;
+ }
+ 100% {
+   filter: alpha(opacity=100);
+   opacity: 1;
+   margin-top: -75px;
+ }
+}
+@-ms-keyframes "login" {
+ 0% {
+   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+   filter: alpha(opacity=0);
+   opacity: 0;
+   margin-top: -50px;
+ }
+ 100% {
+   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+   filter: alpha(opacity=100);
+   opacity: 1;
+   margin-top: -75px;
+ }
+}
+@-o-keyframes "login" {
+ 0% {
+   filter: alpha(opacity=0);
+   opacity: 0;
+   margin-top: -50px;
+ }
+ 100% {
+   filter: alpha(opacity=100);
+   opacity: 1;
+   margin-top: -75px;
+ }
+}';
+}
+if ($ShowLoginLogo == 'hide') {
+$logodisplay = 'img#logo {display:none;}';    
+}
+
+$logincssOutput = '<style>
+html, body, body.dark div.page{background-color: '.$PrimaryColor.';}
+'.$logodisplay.'
+'.$animatedlogin.'
+'.$modx->getChunk(''.$CustomLoginStyle.'').'
+</style>
+  '.$logocustom.''
+;
+
+}
+
+
 /***************Top Frame (nav)  ******************/
 if($e->name == 'OnManagerTopPrerender') {
 //top frame - Nav bar
@@ -21,6 +126,7 @@ $topcssOutput = '<style>
 #mainMenu .nav > li > a { color: '.$NavLinkColor.';!important }
 #mainMenu .nav > li > a:hover, #mainMenu .nav .label_searchid:hover { color: '.$NavLinkHColor.';!important }
 #mainMenu .nav > li > ul > li.hover > a { color: #fff; background-color: '.$NavDropBgHColor.'; }
+'.$modx->getChunk(''.$CustomNavStyle.'').'
 </style>
 ';
 }
@@ -50,8 +156,13 @@ ul li span a, span.pagetitle-icon, h1 .fa
 
 input[type="button"], input[type="submit"]{
 border-color: '.$PrimaryColor.';}
-
-a#Button1, a.btn-primary{ color: #fff!important;}
+a.btn-default {
+background:'.$PrimaryColor.';
+border-color:'.$PrimaryColor.'; 
+color:#FFF!important;
+}
+.btn.panel-hide {color: #999!important;}
+a#Button1, a.btn-primary, a.primary, a.btn-success, a.btn-danger { color: #fff!important;}
 .dynamic-tab-pane-control.tab-pane .tab-row h2.tab.selected.hover,
 .dynamic-tab-pane-control.tab-pane .tab-row .tab.selected,
 .dynamic-tab-pane-control.tab-pane .tab-row .tab.selected.hover,
@@ -140,8 +251,8 @@ span.disabledPlugin > a > span.elementname {color: #b27979!important;}
 
 }
 $manager_theme = $modx->config['manager_theme'];
-if($manager_theme == "MODxRE2_DropdownMenu"||$manager_theme == "default") {
-$output .= $maincssOutput.$topcssOutput.$treecssOutput;
+if($manager_theme == "default") {
+$output .= $logincssOutput.$maincssOutput.$topcssOutput.$treecssOutput;
 }
 $e->output($output);
 return;
