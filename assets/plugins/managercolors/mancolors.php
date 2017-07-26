@@ -2,21 +2,35 @@
 /**
 events: OnManagerLoginFormPrerender,OnManagerTopFrameHeaderHTMLBlock,OnManagerTopPrerender,OnManagerTreeInit
 config:
-&PrimaryColor=main Manager Color:;string;#499bea;;Theme Primary Color (mandatory) &NavBgColor= Nav Background color:;string;;;(optional) &NavLinkColor= Nav link color :;string;#e5eef5;;(optional) &NavLinkHColor= Nav link hover color:;string;#fff;;(optional) &NavDropBgHColor= Nav dropdown hover bg color:;string;;;(optional) &TreeBgColor= Tree Frame Background:;string;;;(optional) &TLinkColor=Tree Links Color:;string;;;Published resources and ElementsInTree element names (optional) &MainBgColor= Main Frame Background:;string;;;(optional) &MainLinkColor=Main Links Color:;string;;;(optional) &ShowLoginLogo=Show Login Logo:;menu;show,hide;show;;Hide EVO logo in login page &CustomLogoPath=Custom Logo path:;string;;;enter the of your company logo &animate-login=Animate Login box:;menu;yes,no;yes;;Add a soft animation to the login box &CustomLoginStyle=Custom Login styles chunk:;string;;;chunk name &CustomNavStyle=Custom Top Frame styles chunk:;string;;;chunk name &CustomTreeStyle=Custom Tree Frame styles chunk:;string;;;chunk name &CustomMainStyle=Custom Main Frame styles chunk:;string;;;chunk name 
+&PrimaryColor=Main Theme Color:;string;#499bea;;Theme Primary Color (mandatory) &NavBgColor= Top Nav Background color:;string;;;(optional) &NavLinkColor= Top Nav link color :;string;#e5eef5;;(optional) &NavLinkHColor= Top Nav link hover color:;string;#fff;;(optional) &NavDropBgHColor= Top Nav dropdown hover bg color:;string;;;(optional) &CustomNavStyle=Custom Top Nav styles chunk:;string;;;chunk name &TreeBgColor= Tree Menu Background:;string;;;(optional) &TreeDarkBgColor= Tree Menu Dark Background:;string;;;(optional) &TLinkColor=Tree Menu Links Color:;string;;;Published resources and ElementsInTree element names (optional) &CustomTreeStyle=Custom Tree Menu styles chunk:;string;;;chunk name &MainBgColor= Main Frame Background:;string;;;(optional) &MainBgDarkColor= Main Frame Dark Background:;string;;;(optional) &MainLinkColor=Main Links Color:;string;;;(optional) &CustomMainStyle=Custom Main Frame styles chunk:;string;;;chunk name  &LoginBgColor= Login Page Background color:;string;#499bea;;overwrite both dark and light backgrounds (optional) &ShowLoginLogo=Show Login Logo:;menu;show,hide;show;;Hide EVO logo in login page &CustomLogoPath=Custom Logo path:;string;;;enter the of your company logo &animate-login=Animate Login box:;menu;yes,no;yes;;Add a soft animation to the login box &CustomLoginStyle=Custom Login styles chunk:;string;;;chunk name  
 
 **/
 global $modx;
 $output = "";
 $e = &$modx->Event;
 
-//Main Color */
+//Colors */
 $PrimaryColor = isset($PrimaryColor) ? $PrimaryColor : '';
 $TreeLinksC = isset($TreeLinksC) ? $TreeLinksC : '';
+$LoginBgColor = isset($LoginBgColor) ? $LoginBgColor : '';
 $NavBgColor = isset($NavBgColor) ? $NavBgColor : $PrimaryColor;
 $NavDropBgHColor = isset($NavDropBgHColor) ? $NavDropBgHColor : $PrimaryColor;
 /*****************login*************/
 $sitename = $modx->getPlaceholder('site_name');
 if($e->name == 'OnManagerLoginFormPrerender') {
+
+if ($LoginBgColor !== '') {
+$LoginBg = ' 
+body{background-color: '.$LoginBgColor.';}
+body.dark div.page{background-color: '.$LoginBgColor.';}
+'; 
+}
+else {
+$LoginBg = ' 
+body{background-color: '.$MainBgColor.';}
+body.dark div.page{background-color: '.$MainBgDarkColor.';}
+';   
+}    
 if ($CustomLogoPath !== '') {
 $logocustom = '<a class="logo" href="../" title="'.$sitename.'">
 					<img src="'.$CustomLogoPath.'" alt="'.$sitename.'" id="logocustom" />
@@ -107,7 +121,7 @@ $logodisplay = 'img#logo {display:none;}';
 }
 
 $logincssOutput = '<style>
-html, body, body.dark div.page{background-color: '.$PrimaryColor.';}
+'.$LoginBg.'
 '.$logodisplay.'
 '.$animatedlogin.'
 '.$modx->getChunk(''.$CustomLoginStyle.'').'
@@ -121,13 +135,16 @@ html, body, body.dark div.page{background-color: '.$PrimaryColor.';}
 /***************Top Frame (nav)  ******************/
 if($e->name == 'OnManagerTopPrerender') {
 //top frame - Nav bar
-$topcssOutput = '<style>
+$topcssOutput = '
+<!-----mancolor--!>
+<style>
 #mainMenu { background-color: '.$NavBgColor.'; color: '.$NavLinkColor.';}
 #mainMenu .nav > li > a { color: '.$NavLinkColor.';!important }
 #mainMenu .nav > li > a:hover, #mainMenu .nav .label_searchid:hover { color: '.$NavLinkHColor.';!important }
 #mainMenu .nav > li > ul > li.hover > a { color: #fff; background-color: '.$NavDropBgHColor.'; }
 '.$modx->getChunk(''.$CustomNavStyle.'').'
 </style>
+<!-----end mancolor--!>
 ';
 }
 /***************Main frame******************/
@@ -140,10 +157,14 @@ $ALinksColor = $MainLinkColor;
     }    
     //main frame - boxes and tabs
 $maincssOutput = '
+<!-----mancolor --!>
 <style>
 
 body {
 	background:'.$MainBgColor.'!important;
+}
+body.dark {
+	background:'.$MainBgDarkColor.'!important;
 }
 a:link, a:visited {
     color: '.$ALinksColor.'!important;
@@ -191,7 +212,9 @@ border-top-color:'.$PrimaryColor.';
 color:'.$PrimaryColor.';
 }
 .wm_buttons a { color: #576B75 !important;}
+'.$modx->getChunk(''.$CustomMainStyle.'').'
 </style>
+<!-----end mancolor--!>
 ';
 }
 
@@ -210,7 +233,10 @@ $TreeLinksColor = $TLinkColor;
 $treecssOutput = '
 <!-----mancolor--!>
 <style>
+#tree .treeframebody #treeHolder{ background-color: '.$TreeBgColor.';}
 
+.dark #tree .treeframebody, .dark.ElementsInTree #tree .treeframebody #treeHolder, .dark.ElementsInTree #tree .treeframebody #treeHolder h2.tab.selected, .dark #treeMenu .treeButton:hover:not(.disabled){ background-color: '.$TreeDarkBgColor.';}
+.dark #treeMenu { background-color: rgba(0, 0, 0, 0.2); border-bottom: none; }
 #treeRoot a.deleted .title { color: #A52A2A; text-decoration: line-through; }
 #treeRoot a.unpublished .title { color: #B68282; font-style: italic; }
 #treeRoot a.hidemenu .title { color: #404040; }
@@ -220,11 +246,12 @@ $treecssOutput = '
 
 .treeButton i, .treeButtonDisabled i , #mx_contextmenu .menuLink i{  color: '.$PrimaryColor.'!important;
 }
+ 
 div#treeHolder a i:hover, .treeButton i:hover, .treeButtonDisabled i:hover {
 	color: '.$PrimaryColor.'!important;
 }
 
-.treeframebody .tab-row h2.tab span, .treeframebody .tab-row h2.tab span i, .treeframebody .tab-pane input.form-control{
+.dark #treeMenu .treeButton, .treeframebody .tab-row h2.tab span, .treeframebody .tab-row h2.tab span i, .treeframebody .tab-pane input.form-control{
     color: '.$TreeLinksColor.'!important; }
 
 #mx_contextmenu #nameHolder, #mx_contextmenu a i, #mx_contextmenu .menuLink:hover {
@@ -245,8 +272,9 @@ span.disabledPlugin > a > span.elementname {color: #b27979!important;}
     border-color: '.$PrimaryColor.'!important;
 }
 .nu-context-menu ul li i, .nu-context-menu-title {color:'.$PrimaryColor.';}
-
+'.$modx->getChunk(''.$CustomTreeStyle.'').'
 </style>
+<!-----end mancolor--!>
 ';
 
 }
