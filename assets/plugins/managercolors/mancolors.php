@@ -38,7 +38,7 @@ $logocustom = '<a class="logo" href="../" title="'.$sitename.'">
 }
 if ($animate-login == 'yes') {
 $animatedlogin ='  
-/* CSS Animations */
+/* CSS Animation */
 .loginbox {width: 460px;
     position: absolute;
     left: 50%;
@@ -154,13 +154,6 @@ $topcssOutput = '
 
 #tree .treeframebody #treeHolder{ background-color: '.$TreeBgColor.';}
 .dark #tree .treeframebody, .dark.ElementsInTree #tree .treeframebody #treeHolder, .dark.ElementsInTree #tree .treeframebody #treeHolder h2.tab.selected, .dark #treeMenu .treeButton:hover:not(.disabled){ background-color: '.$TreeDarkBgColor.';}
-.dark #treeMenu { background-color: rgba(0, 0, 0, 0.2); border-bottom: none; }
-#treeRoot a.deleted .title { color: #A52A2A; text-decoration: line-through; }
-#treeRoot a.unpublished .title { color: #B68282; font-style: italic; }
-#treeRoot a.hidemenu .title { color: #404040; }
-#treeRoot a.protected .title { color: #aaa; }
-#treeRoot a .lockedResource { cursor: pointer; }
-#treeRoot a .editResource { margin-left: 0.2em }
 .treeButton i, .treeButtonDisabled i , #mx_contextmenu .menuLink i{  color: '.$PrimaryColor.'!important;
 }
 div#treeHolder a i:hover, .treeButton i:hover, .treeButtonDisabled i:hover {
