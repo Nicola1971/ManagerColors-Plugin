@@ -6,7 +6,7 @@
  *
  * @author    Nicola Lambathakis http://www.tattoocms.it/
  * @category    plugin
- * @version    beta 3.1.1
+ * @version    beta2 3.1.1
  * @license	 http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal    @events OnManagerLoginFormPrerender,OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
  * @internal    @installset base
@@ -18,7 +18,7 @@
 ### ManagerColors Plugin for Evolution CMS 1.3 ###
 Customize Default EVO Manager theme colors
 Written By Nicola Lambathakis http://www.tattoocms.it/
-Version beta 3.1.1
+Version beta2 3.1.1
 Events: OnManagerLoginFormPrerender,OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
 
 Default configuration:

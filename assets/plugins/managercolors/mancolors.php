@@ -147,9 +147,9 @@ $topcssOutput = '
 <!-----mancolor TopPrerender--!>
 <style>
 #mainMenu { background-color: '.$NavBgColor.'; color: '.$NavLinkColor.';}
-#mainMenu .nav > li > a { color: '.$NavLinkColor.';!important }
-#mainMenu .nav > li > a:hover, #mainMenu .nav .label_searchid:hover { color: '.$NavLinkHColor.';!important }
-#mainMenu .nav > li > ul > li.hover > a { color: #fff; background-color: '.$NavDropBgHColor.'; }
+#mainMenu .nav > li > a { color: '.$NavLinkColor.'!important; }
+#mainMenu .nav > li > a:hover, #mainMenu .nav .label_searchid:hover { color: '.$NavLinkHColor.'!important; }
+#mainMenu .nav > li > ul > li.hover > a { color: #fff; background-color: '.$NavDropBgHColor.'!important; }
 '.$modx->getChunk(''.$CustomNavStyle.'').'
 
 #tree .treeframebody #treeHolder{ background-color: '.$TreeBgColor.';}
@@ -159,7 +159,7 @@ $topcssOutput = '
 div#treeHolder a i:hover, .treeButton i:hover, .treeButtonDisabled i:hover {
 	color: '.$PrimaryColor.'!important;
 }
-.dark #treeMenu .treeButton, .treeframebody .tab-row h2.tab span, .treeframebody .tab-row h2.tab span i, .treeframebody .tab-pane input.form-control{
+.dark #treeMenu .treeButton, .treeframebody .tab-row h2.tab span, .treeframebody .tab-row h2.tab span i, .treeframebody .tab-pane input.form-control, #treeRoot a:not(.deleted):not(.unpublished):not(.hidemenu) .title {
 color: '.$TreeLinksColor.'!important; }
 #mx_contextmenu #nameHolder, #mx_contextmenu a i, #mx_contextmenu .menuLink:hover {
 background:'.$PrimaryColor.';
