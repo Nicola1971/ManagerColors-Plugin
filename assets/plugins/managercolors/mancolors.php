@@ -147,9 +147,11 @@ $topcssOutput = '
 <!-----mancolor TopPrerender--!>
 <style>
 #mainMenu { background-color: '.$NavBgColor.'; color: '.$NavLinkColor.';}
-#mainMenu .nav > li > a { color: '.$NavLinkColor.'!important; }
+
+#mainMenu .nav > li > a, #mainMenu .nav .label_searchid { color: '.$NavLinkColor.'!important; }
 #mainMenu .nav > li > a:hover, #mainMenu .nav .label_searchid:hover { color: '.$NavLinkHColor.'!important; }
 #mainMenu .nav > li > ul > li.hover > a { color: #fff; background-color: '.$NavDropBgHColor.'!important; }
+#mainMenu.show .nav > li.dropdown.hover > a { background-color: #fff; color: #444!important; }
 '.$modx->getChunk(''.$CustomNavStyle.'').'
 
 #tree .treeframebody #treeHolder{ background-color: '.$TreeBgColor.';}
