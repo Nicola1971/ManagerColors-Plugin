@@ -156,19 +156,17 @@ $topcssOutput = '
 
 #tree .treeframebody #treeHolder{ background-color: '.$TreeBgColor.';}
 .dark #tree .treeframebody, .dark.ElementsInTree #tree .treeframebody #treeHolder, .dark.ElementsInTree #tree .treeframebody #treeHolder h2.tab.selected, .dark #treeMenu .treeButton:hover:not(.disabled){ background-color: '.$TreeDarkBgColor.';}
-.treeButton i, .treeButtonDisabled i , #mx_contextmenu .menuLink i{  color: '.$PrimaryColor.'!important;
-}
-div#treeHolder a i:hover, .treeButton i:hover, .treeButtonDisabled i:hover {
+.treeButton i, .treeButtonDisabled i , #mx_contextmenu .menuLink i,
+div#treeHolder a i:hover, .treeButton i:hover, .treeButtonDisabled i:hover, .tab-page ul.actionButtons li a, #treePane .tab-page .actionButtons a:hover, #treePane .tab-page .actionButtons a:hover i 
+{
 	color: '.$PrimaryColor.'!important;
 }
 .dark #treeMenu .treeButton, .treeframebody .tab-row h2.tab span, .treeframebody .tab-row h2.tab span i, .treeframebody .tab-pane input.form-control, #treeRoot a:not(.deleted):not(.unpublished):not(.hidemenu) .title {
 color: '.$TreeLinksColor.'!important; }
-#mx_contextmenu #nameHolder, #mx_contextmenu a i, #mx_contextmenu .menuLink:hover {
+#mx_contextmenu #nameHolder, #mx_contextmenu a i, #mx_contextmenu .menuLink:hover 
+{
 background:'.$PrimaryColor.';
 color:#FFF!important;
-}
-.tab-page ul.actionButtons li a, #treePane .tab-page .actionButtons a:hover, #treePane .tab-page .actionButtons a:hover i {
-color: '.$PrimaryColor.'!important;
 }
 .rootNode, .publishedNode, 
 .treeframebody .elementname {color: '.$TreeLinksColor.'!important;}
@@ -210,11 +208,7 @@ a:link, a:visited {
 span.disabledPlugin a {
     color: #aaa!important;
 }
-ul li span a, span.pagetitle-icon, h1 .fa
-{color: '.$PrimaryColor.'!important;}
-
-input[type="button"], input[type="submit"]{
-border-color: '.$PrimaryColor.';}
+input[type="button"], input[type="submit"]{border-color: '.$PrimaryColor.';}
 a.btn-default {
 background:'.$PrimaryColor.';
 border-color:'.$PrimaryColor.'; 
@@ -229,23 +223,9 @@ a#Button1, a.btn-primary, a.primary, a.btn-success, a.btn-danger { color: #fff!i
 .dynamic-tab-pane-control .tab-row .tab.selected,
 .dynamic-tab-pane-control .tab-row .tab.selected.hover
 {
-box-shadow: 0 -3px 0 '.$PrimaryColor.',-1px 0 0 transparent!important;
 color:'.$PrimaryColor.'!important;
 }
-.dynamic-tab-pane-control .tab-row .tab.selected.hover {
-color:'.$PrimaryColor.';
-}
-
-.dynamic-tab-pane-control.tab-pane .tab-row .tab, 
-.dynamic-tab-pane-control.tab-pane .tab-row .tab span, 
-.dynamic-tab-pane-control.tab-pane .tab-row .tab.selected span,
-.dynamic-tab-pane-control.tab-pane .tab-row .tab.selected.hover span,
-.dynamic-tab-pane-control.tab-pane .tab-row .tab span i,
-.tab-pane ul li ul li strong,
-.dynamic-tab-pane-control.tab-pane .tab-row .tab.hover span
-{
-color:'.$PrimaryColor.';
-}
+ul li span a, span.pagetitle-icon, h1 .fa {color: '.$PrimaryColor.'!important;}
 .wm_buttons a { color: #576B75 !important;}
 '.$modx->getChunk(''.$CustomMainStyle.'').'
 </style>
