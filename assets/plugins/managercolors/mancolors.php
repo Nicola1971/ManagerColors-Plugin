@@ -220,6 +220,7 @@ background:'.$PrimaryColor.';
 border-color:'.$PrimaryColor.'; 
 color:#FFF!important;
 }
+
 .btn.panel-hide {color: #999!important;}
 a#Button1, a.btn-primary, a.primary, a.btn-success, a.btn-danger { color: #fff!important;}
 .dynamic-tab-pane-control.tab-pane .tab-row h2.tab.selected.hover,
@@ -231,12 +232,8 @@ a#Button1, a.btn-primary, a.primary, a.btn-success, a.btn-danger { color: #fff!i
 box-shadow: 0 -3px 0 '.$PrimaryColor.',-1px 0 0 transparent!important;
 color:'.$PrimaryColor.'!important;
 }
-.dynamic-tab-pane-control .tab-row .tab.selected span:after {
-border-top-color: '.$PrimaryColor.';
-}
 .dynamic-tab-pane-control .tab-row .tab.selected.hover {
 color:'.$PrimaryColor.';
-border-top-color:'.$PrimaryColor.';
 }
 
 .dynamic-tab-pane-control.tab-pane .tab-row .tab, 
