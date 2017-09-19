@@ -2,7 +2,7 @@
 /**
 events: OnManagerLoginFormPrerender,OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
 config:
-&PrimaryColor=Main Theme Color:;string;#499bea;;Theme Primary Color (mandatory) &NavBgColor= Top Nav Background color:;string;;;(optional) &NavLinkColor= Top Nav link color :;string;#e5eef5;;(optional) &NavLinkHColor= Top Nav link hover color:;string;#fff;;(optional) &NavDropBgHColor= Top Nav dropdown hover bg color:;string;;;(optional) &TreeBgColor= Tree Menu Background:;string;;;(optional) &TreeDarkBgColor= Tree Menu Dark Background:;string;;;(optional) &TLinkColor=Tree Menu Links Color:;string;;;Published resources and ElementsInTree element names (optional) &CustomNavStyle=Custom Navigation and Tree styles chunk:;string;;;chunk name  &MainBgColor= Main Frame Background:;string;;;(optional) &MainBgDarkColor= Main Frame Dark Background:;string;;;(optional) &MainLinkColor=Main Links Color:;string;;;(optional) &buttonsColor=Colored action buttons:;menu;yes,no;yes;;Add background color to duplicate delete and cancel buttons &CustomMainStyle=Custom Main Frame styles chunk:;string;;;chunk name  &LoginBgColor= Login Page Background color:;string;#499bea;;overwrite both dark and light backgrounds (optional) &LoginBgImage= Login Page Background image:;string;;;ie: ../assets/images/login/rainbow.jpg (optional) &ShowLoginLogo=Show Login Logo:;menu;show,hide;show;;Hide EVO logo in login page &CustomLogoPath=Custom Logo path:;string;;;enter the url of your company logo &animate-login=Animate Login box:;menu;yes,no;yes;;Add a soft animation to the login box &CustomLoginStyle=Custom Login styles chunk:;string;;;chunk name  
+&PrimaryColor=Main Theme Color:;string;#499bea;;Theme Primary Color (mandatory) &NavBgColor= Top Nav Background color:;string;;;(optional) &NavLinkColor= Top Nav link color :;string;#e5eef5;;(optional) &NavLinkHColor= Top Nav link hover color:;string;#fff;;(optional) &NavDropBgHColor= Top Nav dropdown hover bg color:;string;;;(optional) &TreeBgColor= Tree Menu Background:;string;;;(optional) &TreeDarkBgColor= Tree Menu Dark Background:;string;;;(optional) &TLinkColor=Tree Menu Links Color:;string;;;Published resources and ElementsInTree element names (optional) &CustomNavStyle=Custom Navigation and Tree styles chunk:;string;;;chunk name  &MainBgColor= Main Frame Background:;string;;;(optional) &MainBgDarkColor= Main Frame Dark Background:;string;;;(optional) &MainLinkColor=Main Links Color:;string;;;(optional) &buttonsColor=Colored action buttons:;menu;yes,no;yes;;Add background color to duplicate delete and cancel buttons &CustomMainStyle=Custom Main Frame styles chunk:;string;;;chunk name  &LoginBgColor= Login Page Background color:;string;#499bea;;overwrite both dark and light backgrounds (optional) &LoginBgImage= Login Page Background image:;string;;;ie: ../assets/images/login/rainbow.jpg (optional) &coollogin=Semi-Transparent login form:;menu;yes,no;no;;Custom login form with alpha background &ShowLoginLogo=Show Login Logo:;menu;show,hide;show;;Hide EVO logo in login page &CustomLogoPath=Custom Logo path:;string;;;enter the url of your company logo &animate-login=Animate Login box:;menu;yes,no;yes;;Add a soft animation to the login box &CustomLoginStyle=Custom Login styles chunk:;string;;;chunk name  
 
 **/
 global $modx;
@@ -89,6 +89,41 @@ if ($CustomLogoPath !== '') {
 $logocustom = '<a class="logo" href="../" title="'.$sitename.'">
 					<img src="'.$CustomLogoPath.'" alt="'.$sitename.'" id="logocustom" />
 				</a>';
+}
+if ($coollogin == 'yes') {
+$coolloginFrm ='
+.loginbox {
+    color: #FFF;
+    text-shadow:1px 1px 1px rgba(255, 255, 255, 0.4);
+    background-color: rgba(255, 255, 255, 0.5)!important;}
+    -moz-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.8);
+    -webkit-box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 3x 6px rgba(0, 0, 0, 0.8);
+    }
+#FMP-email_label { color: #FFF!important;}
+.text-muted, #FMP-email_label { color: #fff !important; 
+    text-shadow:1px 1px 1px rgba(0,0,0,0.8);}
+#FMP-email_button, #submitButton {
+	cursor: pointer;
+	color: #FFF;
+	padding: 8px 16px;
+	margin:0 0 10px 10px;
+    border-radius: 3px;
+    width:100%;
+}
+#submitButton {
+	padding: 8px 16px;
+    border-radius: 3px;
+    width:100%;
+}
+#FMP-email_button {
+	border: 1px solid #499bea;
+	background: #499bea;
+}
+   #FMP-email_button:hover {
+	border: 1px solid #2683dd;
+	background: #2683dd;
+}';
 }
 if ($animate-login == 'yes') {
 $animatedlogin ='  
@@ -177,11 +212,13 @@ $logodisplay = 'img#logo {display:none;}';
 $logincssOutput = '
 <!-----mancolor LoginFormPrerender--!>
 <style>
+'.$coolloginFrm.'
 '.$LoginBg.'
 '.$LoginBgI.'
 '.$logodisplay.'
 '.$animatedlogin.'
 '.$modx->getChunk(''.$CustomLoginStyle.'').'
+
 </style>
   '.$logocustom.'
 <!----- end mancolor--!>  
