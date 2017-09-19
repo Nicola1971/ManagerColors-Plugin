@@ -2,10 +2,12 @@
 for Evolution CMS
 
 ### Customize default EVO manager theme colours
-
+![settings](https://user-images.githubusercontent.com/7342798/30590959-24675f20-9d41-11e7-81d9-4cf3b0cabddb.png)
 ![download](https://user-images.githubusercontent.com/7342798/30176219-eb741796-9401-11e7-9aee-5d38dfbed78e.png)
 ![login-bg](https://user-images.githubusercontent.com/7342798/30590683-fcbebb0e-9d3f-11e7-89d8-65ebfc4a594f.png)
 
+Custom logo
+![custom-logo-login](https://user-images.githubusercontent.com/7342798/30590886-d3f55128-9d40-11e7-9fdb-4bf193bcd00e.png)
 https://youtu.be/iEDYP00iN9M
 
 #### Update 1.3.3
