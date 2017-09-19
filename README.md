@@ -26,3 +26,6 @@ https://youtu.be/iEDYP00iN9M
 ![rainbow-login](https://user-images.githubusercontent.com/7342798/30590448-e3c59a74-9d3e-11e7-864b-7c44504c438b.png)
 ![fields-login](https://user-images.githubusercontent.com/7342798/30590454-e81e2c62-9d3e-11e7-890a-43bd46c108a6.png)
 ![sky-login](https://user-images.githubusercontent.com/7342798/30590456-ebf82086-9d3e-11e7-98c6-aadf56575a4a.png)
+
+##### Custom Semi-Transparent login form:
+![trans-login](https://user-images.githubusercontent.com/7342798/30611738-823d4970-9d82-11e7-9bdf-b32db2120684.png)
