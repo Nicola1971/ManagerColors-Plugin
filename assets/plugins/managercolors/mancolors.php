@@ -2,7 +2,7 @@
 /**
 events: OnManagerLoginFormPrerender,OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
 config:
-&PrimaryColor=Main Theme Color:;string;#499bea;;Theme Primary Color (mandatory) &NavBgColor= Top Nav Background color:;string;;;(optional) &NavLinkColor= Top Nav link color :;string;#e5eef5;;(optional) &NavLinkHColor= Top Nav link hover color:;string;#fff;;(optional) &NavDropBgHColor= Top Nav dropdown hover bg color:;string;;;(optional) &TreeBgColor= Tree Menu Background:;string;;;(optional) &TreeDarkBgColor= Tree Menu Dark Background:;string;;;(optional) &TLinkColor=Tree Menu Links Color:;string;;;Published resources and ElementsInTree element names (optional) &CustomNavStyle=Custom Navigation and Tree styles chunk:;string;;;chunk name  &MainBgColor= Main Frame Background:;string;;;(optional) &MainBgDarkColor= Main Frame Dark Background:;string;;;(optional) &MainLinkColor=Main Links Color:;string;;;(optional) &CustomMainStyle=Custom Main Frame styles chunk:;string;;;chunk name  &LoginBgColor= Login Page Background color:;string;#499bea;;overwrite both dark and light backgrounds (optional) &LoginBgImage= Login Page Background image:;string;;;ie: ../assets/images/login/rainbow.jpg (optional) &ShowLoginLogo=Show Login Logo:;menu;show,hide;show;;Hide EVO logo in login page &CustomLogoPath=Custom Logo path:;string;;;enter the url of your company logo &animate-login=Animate Login box:;menu;yes,no;yes;;Add a soft animation to the login box &CustomLoginStyle=Custom Login styles chunk:;string;;;chunk name  
+&PrimaryColor=Main Theme Color:;string;#499bea;;Theme Primary Color (mandatory) &NavBgColor= Top Nav Background color:;string;;;(optional) &NavLinkColor= Top Nav link color :;string;#e5eef5;;(optional) &NavLinkHColor= Top Nav link hover color:;string;#fff;;(optional) &NavDropBgHColor= Top Nav dropdown hover bg color:;string;;;(optional) &TreeBgColor= Tree Menu Background:;string;;;(optional) &TreeDarkBgColor= Tree Menu Dark Background:;string;;;(optional) &TLinkColor=Tree Menu Links Color:;string;;;Published resources and ElementsInTree element names (optional) &CustomNavStyle=Custom Navigation and Tree styles chunk:;string;;;chunk name  &MainBgColor= Main Frame Background:;string;;;(optional) &MainBgDarkColor= Main Frame Dark Background:;string;;;(optional) &MainLinkColor=Main Links Color:;string;;;(optional) &buttonsColor=Colored action buttons:;menu;yes,no;yes;;Add background color to duplicate delete and cancel buttons &CustomMainStyle=Custom Main Frame styles chunk:;string;;;chunk name  &LoginBgColor= Login Page Background color:;string;#499bea;;overwrite both dark and light backgrounds (optional) &LoginBgImage= Login Page Background image:;string;;;ie: ../assets/images/login/rainbow.jpg (optional) &ShowLoginLogo=Show Login Logo:;menu;show,hide;show;;Hide EVO logo in login page &CustomLogoPath=Custom Logo path:;string;;;enter the url of your company logo &animate-login=Animate Login box:;menu;yes,no;yes;;Add a soft animation to the login box &CustomLoginStyle=Custom Login styles chunk:;string;;;chunk name  
 
 **/
 global $modx;
@@ -16,6 +16,41 @@ $LoginBgColor = isset($LoginBgColor) ? $LoginBgColor : '';
 $LoginBgImage = isset($LoginBgImage) ? $LoginBgImage : '';
 $NavBgColor = isset($NavBgColor) ? $NavBgColor : $PrimaryColor;
 $NavDropBgHColor = isset($NavDropBgHColor) ? $NavDropBgHColor : $PrimaryColor;
+
+
+if ($buttonsColor == 'yes') {
+$coloredButtons = '
+/* duplicate button */ 
+#actions a#Button6.btn.btn-secondary{
+color: #FFF!important;
+border-color: #337ab7;
+background: #337ab7;}
+#actions a#Button6.btn.btn-secondary:hover{
+color: #fff;
+border-color: #285e8d;
+background:#285e8d;}
+
+/* delete button */ 
+#actions a#Button3.btn.btn-secondary{
+color: #FFF!important;
+border-color: #e77755;
+background-color: #e77755;}
+#actions a#Button3.btn.btn-secondary:hover{
+color: #fff;
+border-color: #bc3423;
+background:#bc3423;}
+
+/* cancel button */ 
+#actions a#Button5.btn.btn-secondary{
+color: #FFF!important;
+border-color: #f0ad4e;
+background: #f0ad4e!important;}
+#actions a#Button5.btn.btn-secondary:hover{
+color: #FFF;
+border-color: #e18a13;
+background: #e18a13!important;}';
+}
+
 /*****************login*************/
 $sitename = $modx->getPlaceholder('site_name');
 if($e->name == 'OnManagerLoginFormPrerender') {
@@ -210,8 +245,8 @@ $ALinksColor = $PrimaryColor;
 }
 else {
 $ALinksColor = $MainLinkColor;
-    }    
-    //main frame - boxes and tabs
+    }
+//main frame - boxes and tabs
 $maincssOutput = '
 <!-----mancolor MainFrameHeaderHTMLBlock --!>
 <style>
@@ -247,6 +282,8 @@ color:'.$PrimaryColor.'!important;
 }
 ul li span a, span.pagetitle-icon, h1 .fa {color: '.$PrimaryColor.'!important;}
 .wm_buttons a { color: #576B75 !important;}
+'.$coloredButtons.'
+
 '.$modx->getChunk(''.$CustomMainStyle.'').'
 </style>
 <!-----end mancolor--!>
