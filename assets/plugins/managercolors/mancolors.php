@@ -235,16 +235,10 @@ $TreeLinksColor = $PrimaryColor;
 else {
 $TreeLinksColor = $TLinkColor;
     }
-if (empty($NavBgColor)) {
-$mainMenuColor = $PrimaryColor;
-}
-else {
-$mainMenuColor = $NavBgColor;
-    }
 $topcssOutput = '
 <!-----mancolor TopPrerender--!>
 <style>
-#mainMenu { background-color: '.$mainMenuColor.'; color: '.$NavLinkColor.';}
+#mainMenu { background-color: '.$NavBgColor.'; color: '.$NavLinkColor.';}
 
 #mainMenu .nav > li > a, #mainMenu .nav .label_searchid { color: '.$NavLinkColor.'!important; }
 #mainMenu .nav > li > a:hover, #mainMenu .nav .label_searchid:hover { color: '.$NavLinkHColor.'!important; }
