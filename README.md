@@ -1,5 +1,5 @@
 # ManagerColors-Plugin
-for Evolution CMS
+for Evolution CMS 1.4
 
 ### Customize default EVO manager theme colours
 ![settings](https://user-images.githubusercontent.com/7342798/30590959-24675f20-9d41-11e7-81d9-4cf3b0cabddb.png)
