@@ -271,6 +271,7 @@ a#Button1, a.btn-primary, a.primary, a.btn-success, a.btn-danger { color: #fff!i
 {
 color:'.$PrimaryColor.'!important;
 }
+.resourceTable ul.elements > li:hover { border-left-color:'.$PrimaryColor.'!important; }
 ul li span a, span.pagetitle-icon, h1 .fa {color: '.$PrimaryColor.'!important;}
 .wm_buttons a { color: #576B75 !important;}
 '.$coloredButtons.'
