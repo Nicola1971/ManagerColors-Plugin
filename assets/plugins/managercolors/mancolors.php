@@ -2,7 +2,7 @@
 /**
 events: OnManagerLoginFormPrerender,OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
 config:
-&plgVisibility=Run for:;menu;All,AdminOnly,AdminExcluded,ThisRoleOnly,ThisUserOnly;All &ThisRole=Run only for this role:;string;;;(role id) &ThisUser=Run only for this user:;string;;;(username) &PrimaryColor=Main Theme Color:;string;#499bea;;Theme Primary Color (mandatory) &NavBgColor= Top Nav Background color:;string;;;(optional) &NavLinkColor= Top Nav link color :;string;#e5eef5;;(optional) &NavLinkHColor= Top Nav link hover color:;string;#fff;;(optional) &NavDropBgHColor= Top Nav dropdown hover bg color:;string;;;(optional) &TreeBgColor= Tree Menu Background:;string;;;(optional) &TreeDarkBgColor= Tree Menu Dark Background:;string;;;(optional) &TLinkColor=Tree Menu Links Color:;string;;;Published resources and ElementsInTree element names (optional) &CustomNavStyle=Custom Navigation and Tree styles chunk:;string;;;chunk name  &MainBgColor= Main Frame Background:;string;;;(optional) &MainBgDarkColor= Main Frame Dark Background:;string;;;(optional) &MainLinkColor=Main Links Color:;string;;;(optional) &buttonsColor=Colored action buttons:;menu;yes,no;yes;;Add background color to duplicate delete and cancel buttons &CustomMainStyle=Custom Main Frame styles chunk:;string;;;chunk name  &LoginBgColor= Login Page Background color:;string;#499bea;;overwrite both dark and light backgrounds (optional) &LoginBgImage= Login Page Background image:;string;;;ie: ../assets/images/login/rainbow.jpg (optional) &coollogin=Semi-Transparent login form:;menu;yes,no;no;;Custom login form with alpha background &ShowLoginLogo=Show Login Logo:;menu;show,hide;show;;Hide EVO logo in login page &CustomLogoPath=Custom Logo path:;string;;;enter the url of your company logo &animate-login=Animate Login box:;menu;yes,no;yes;;Add a soft animation to the login box &CustomLoginStyle=Custom Login styles chunk:;string;;;chunk name  
+&plgVisibility=Run for:;menu;All,AdminOnly,AdminExcluded,ThisRoleOnly,ThisUserOnly;All &ThisRole=Run only for this role:;string;;;(role id) &ThisUser=Run only for this user:;string;;;(username) &PrimaryColor=Main Theme Color:;string;#0e80cb;;Theme Primary Color (mandatory) &NavBgColor= Top Nav Background color:;string;;;(optional) &NavLinkColor= Top Nav link color :;string;#e5eef5;;(optional) &NavLinkHColor= Top Nav link hover color:;string;#fff;;(optional) &NavDropBgHColor= Top Nav dropdown hover bg color:;string;;;(optional) &TreeBgColor= Tree Menu Background:;string;;;(optional) &TLinkColor=Tree Menu Links Color:;string;;;Published resources and ElementsInTree element names (optional) &TreeDarkBgColor= Dark Tree Menu Background:;string;;;(optional) &TDarkLinkColor=Dark Tree Menu Links Color:;string;;;Published resources and ElementsInTree element names (optional) &CustomNavStyle=Custom Navigation and Tree styles chunk:;string;;;chunk name  &MainBgColor= Main Frame Background:;string;;;(optional) &MainBgDarkColor= Main Frame Dark Background:;string;;;(optional) &MainLinkColor=Main Links Color:;string;;;(optional) &buttonsColor=Colored action buttons:;menu;yes,no;yes;;Add background color to duplicate delete and cancel buttons &CustomMainStyle=Custom Main Frame styles chunk:;string;;;chunk name  &LoginBgColor= Login Page Background color:;string;;;overwrite both dark and light backgrounds (optional) &LoginBgImage= Login Page Background image:;string;;;ie: ../assets/images/login/rainbow.jpg (optional) &coollogin=Semi-Transparent login form:;menu;yes,no;no;;Custom login form with alpha background &ShowLoginLogo=Show Login Logo:;menu;show,hide;show;;Hide EVO logo in login page &CustomLogoPath=Custom Logo path:;string;;;enter the url of your company logo &CustomLoginStyle=Custom Login styles chunk:;string;;;chunk name  
 
 **/
 // get manager role
@@ -25,6 +25,7 @@ $e = &$modx->Event;
 
 //Colors */
 $PrimaryColor = isset($PrimaryColor) ? $PrimaryColor : '';
+$TreeLinksC = isset($TreeLinksC) ? $TreeLinksC : '';
 $TreeLinksC = isset($TreeLinksC) ? $TreeLinksC : '';
 $LoginBgColor = isset($LoginBgColor) ? $LoginBgColor : '';
 $LoginBgImage = isset($LoginBgImage) ? $LoginBgImage : '';
@@ -139,86 +140,7 @@ $coolloginFrm ='
 	background: #2683dd;
 }';
 }
-if ($animate-login == 'yes') {
-$animatedlogin ='  
-/* CSS Animation */
-.loginbox {width: 460px;
-    position: absolute;
-    left: 50%;
-    top: 25%;
-    margin-left: -250px;
-    margin-top: -75px;
-    -webkit-animation: login 1s ease-in-out;
-    -moz-animation: login 1s ease-in-out;
-    -ms-animation: login 1s ease-in-out;
-    -o-animation: login 1s ease-in-out;
-    animation: login 1s ease-in-out;
-}
-@keyframes "login" {
- 0% {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-    filter: alpha(opacity=0);
-    opacity: 0;
-    margin-top: -50px;
- }
- 100% {
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-    filter: alpha(opacity=100);
-    opacity: 1;
-    margin-top: -75px;
- }
-}
-@-moz-keyframes login {
- 0% {
-   filter: alpha(opacity=0);
-   opacity: 0;
-   margin-top: -50px;
- }
- 100% {
-   filter: alpha(opacity=100);
-   opacity: 1;
-   margin-top: -75px;
- }
-}
-@-webkit-keyframes "login" {
- 0% {
-   filter: alpha(opacity=0);
-   opacity: 0;
-   margin-top: -50px;
- }
- 100% {
-   filter: alpha(opacity=100);
-   opacity: 1;
-   margin-top: -75px;
- }
-}
-@-ms-keyframes "login" {
- 0% {
-   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
-   filter: alpha(opacity=0);
-   opacity: 0;
-   margin-top: -50px;
- }
- 100% {
-   -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
-   filter: alpha(opacity=100);
-   opacity: 1;
-   margin-top: -75px;
- }
-}
-@-o-keyframes "login" {
- 0% {
-   filter: alpha(opacity=0);
-   opacity: 0;
-   margin-top: -50px;
- }
- 100% {
-   filter: alpha(opacity=100);
-   opacity: 1;
-   margin-top: -75px;
- }
-}';
-}
+
 if ($ShowLoginLogo == 'hide') {
 $logodisplay = 'img#logo {display:none;}';    
 }
@@ -230,7 +152,6 @@ $logincssOutput = '
 '.$LoginBg.'
 '.$LoginBgI.'
 '.$logodisplay.'
-'.$animatedlogin.'
 '.$modx->getChunk(''.$CustomLoginStyle.'').'
 
 </style>
@@ -249,12 +170,21 @@ $TreeLinksColor = $PrimaryColor;
 else {
 $TreeLinksColor = $TLinkColor;
     }
+
+if (empty($TDarkLinkColor)) {
+$DarkTreeLinksColor = $TreeLinksColor;
+}
+else {
+$DarkTreeLinksColor = $TDarkLinkColor;
+    }
+	
 if (empty($NavBgColor)) {
 $mainMenuColor = $PrimaryColor;
 }
 else {
 $mainMenuColor = $NavBgColor;
-    }
+    }	
+
 $topcssOutput = '
 <!-----mancolor TopPrerender--!>
 <style>
@@ -273,8 +203,12 @@ div#treeHolder a i:hover, .treeButton i:hover, .treeButtonDisabled i:hover, .tab
 {
 	color: '.$PrimaryColor.'!important;
 }
-.dark #treeMenu .treeButton, .treeframebody .tab-row h2.tab span, .treeframebody .tab-row h2.tab span i, .treeframebody .tab-pane input.form-control, #treeRoot a:not(.deleted):not(.unpublished):not(.hidemenu) .title {
+.treeframebody .tab-row h2.tab span i, .treeframebody .tab-pane input.form-control, #treeRoot a:not(.deleted):not(.unpublished):not(.hidemenu) .title {
 color: '.$TreeLinksColor.'!important; }
+
+.dark #treeMenu .treeButton, .treeframebody .tab-row h2.tab span, .dark .treeframebody .tab-row h2.tab span i, .dark .treeframebody .tab-pane input.form-control, .dark #treeRoot a:not(.deleted):not(.unpublished):not(.hidemenu) .title {
+color: '.$DarkTreeLinksColor.'!important; }
+
 #mx_contextmenu #nameHolder, #mx_contextmenu a i, #mx_contextmenu .menuLink:hover i, #mx_contextmenu .menuLink:hover 
 {
 background:'.$PrimaryColor.';
