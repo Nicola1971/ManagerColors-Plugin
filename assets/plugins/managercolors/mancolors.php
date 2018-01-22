@@ -236,10 +236,6 @@ $ALinksColor = $MainLinkColor;
 $maincssOutput = '
 <!-----mancolor MainFrameHeaderHTMLBlock --!>
 <style>
-
-a:link, a:visited {
-    color: '.$ALinksColor.'!important;
-}
 span.disabledPlugin a {
     color: #aaa!important;
 }
