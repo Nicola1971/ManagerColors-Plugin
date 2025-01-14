@@ -100,12 +100,6 @@ else {
             $mainMenuColor = $NavBgColor;
         }
         
-        if ($CustomLogoPath !== '') {
-            $stylelogocustom = '#mainMenu #nav #site::before {background: transparent url("'.$CustomLogoPath.'")}';
-        }
-        else {
-            $stylelogocustom = '';
-        }
         //Navbar Logo
         if ($ShowNavLogo == 'hide') {
             $stylenavlogodisplay = 'body #mainMenu [data-evocp="bgmColor"] #nav #site::before, #mainMenu #nav #site::before {display:none;} @media (min-width: 1200px) {
@@ -124,6 +118,12 @@ else {
         if ($ShowNavLogo == 'smallwhite') {
             $stylenavlogodisplay = 'body #mainMenu [data-evocp="bgmColor"] #nav #site::before, #mainMenu #nav #site::before, body.lightness #mainMenu #nav #site::before {left: 0; top: 0.25rem; width: 100%; height: 2.0rem; background: url("media/style/default/images/misc/logo-navbar-left-white.png") no-repeat 0 50%; background-size: 2.0rem;} @media (min-width: 1200px) {
                 #mainMenu #nav #site a {margin-left:3.0rem;;} }';  
+        }
+        if ($CustomLogoPath !== '' && $ShowNavLogo == 'custom') {
+            $stylelogocustom = 'body #mainMenu [data-evocp="bgmColor"] #nav #site::before, #mainMenu #nav #site::before, body.lightness #mainMenu #nav #site::before {background: url("'.$CustomLogoPath.'") 0 50% no-repeat; background-size: 8rem; }';
+        }
+        else {
+            $stylelogocustom = '';
         }
         $topcssOutput = '
         <!-----managercolor TopPrerender--!>
