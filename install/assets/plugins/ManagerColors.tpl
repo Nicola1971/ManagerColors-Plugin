@@ -6,7 +6,7 @@
  *
  * @author    Nicola Lambathakis http://www.tattoocms.it/
  * @category    plugin
- * @version    4.0
+ * @version    4.0.1
  * @license	 http://www.gnu.org/copyleft/gpl.html GNU Public License (GPL)
  * @internal    @events OnManagerLoginFormPrerender,OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
  * @internal    @installset base
