@@ -2,7 +2,7 @@
 /**
  * ManagerColors plugin 
  * Customize Evolution CMS Default Manager theme colors
- *
+ * version    4.0.1
  * Events: OnManagerLoginFormPrerender,OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
  */
 
@@ -46,7 +46,7 @@ else {
         if ($LoginBgColor !== '') {
             $styleLoginBg = ' 
             body{background-color: '.$LoginBgColor.';}
-            body.dark div.page{background-color: '.$LoginBgColor.';}
+            body div.page{background-color: '.$LoginBgColor.';}
             '; 
         }
         else {
@@ -137,8 +137,9 @@ else {
         #mainMenu [data-evocp="bgmColor"]  .nav > li > a, #mainMenu .nav .label_searchid { color: '.$NavLinkColor.'!important; }
         #mainMenu [data-evocp="bgmColor"] .nav > li > a:hover, #mainMenu .nav .label_searchid:hover { color: '.$NavLinkHColor.'!important; }
         .dark #mainMenu.show [data-evocp="bgmColor"] .nav > li.dropdown.hover > a, .light #mainMenu.show [data-evocp="bgmColor"] .nav > li.dropdown.hover > a, .lightness #mainMenu.show [data-evocp="bgmColor"] .nav > li.dropdown.hover > a { color: '.$NavLinkLActColor.'!important;}
+        .lightness #mainMenu.show [data-evocp="bgmColor"] .nav > li.dropdown.hover > a { background-color: #FFF!important;}
         #mainMenu [data-evocp="bgmColor"]  .nav > li > ul > li.hover > a { color: #fff; background-color: '.$NavDropBgHColor.'!important; }
-        .lightness #mainMenu [data-evocp="bgmColor"] .nav > li.active > a {background: rgba(255, 255, 255, 0.07);}
+        .lightness #mainMenu [data-evocp="bgmColor"] .nav > li.active > a {background: rgba(255, 255, 255, 0.07);}  
         '.$stylelogocustom.'
         '.$stylenavlogodisplay.'
         '.$modx->getChunk(''.$CustomNavStyle.'').'
