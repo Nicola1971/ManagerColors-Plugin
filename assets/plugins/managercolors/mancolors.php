@@ -2,7 +2,7 @@
 /**
  * ManagerColors plugin 
  * Customize Evolution CMS Default Manager theme colors
- * version    4.0.1
+ * version    4.0.2
  * Events: OnManagerLoginFormPrerender,OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
  */
 
