@@ -8,6 +8,31 @@
 
 if (!defined('MODX_BASE_PATH')) { die('What are you doing? Get out of here!'); }
 
+// Initialize plugin parameters with default values
+$plgVisibility = $plgVisibility ?? 'All';
+$ThisRole = $ThisRole ?? '';
+$ThisUser = $ThisUser ?? '';
+$ShowLoginLogo = $ShowLoginLogo ?? 'default';
+$ShowNavLogo = $ShowNavLogo ?? 'default';
+$CustomLoginStyle = $CustomLoginStyle ?? '';
+$CustomNavStyle = $CustomNavStyle ?? '';
+$CustomMainStyle = $CustomMainStyle ?? '';
+$TLinkColor = $TLinkColor ?? '';
+$TDarkLinkColor = $TDarkLinkColor ?? '';
+$NavLinkColor = $NavLinkColor ?? '';
+$NavLinkHColor = $NavLinkHColor ?? '';
+$NavLinkLActColor = $NavLinkLActColor ?? '';
+$TreeLinksColor = $TreeLinksColor ?? '';
+$MainLinkColor = $MainLinkColor ?? '';
+$buttonsColor = $buttonsColor ?? 'no';
+$stylelogodisplay = '';
+$styleLoginBg = '';
+$styleTreeLinksColor = '';
+$styleElTreeButtC = '';
+$stylelogocustom = '';
+$stylecoloredButtons = '';
+$styleALinksColor = '';
+
 // get manager role
 $internalKey = $modx->getLoginUserID();
 $sid = $modx->sid;
@@ -27,18 +52,18 @@ else {
     $output = "";
     $e = &$modx->Event;
 
-    //Colors */
-    $PrimaryColor = isset($PrimaryColor) ? $PrimaryColor : '';
-    $TreeLinksC = isset($TreeLinksC) ? $TreeLinksC : '';
-    $DarkTreeLinksColor = isset($DarkTreeLinksColor) ? $DarkTreeLinksColor : '';
-    $TreeButtC = isset($TreeButtC) ? $TreeButtC : $PrimaryColor;
-    $ElTreeButtC = isset($ElTreeButtC) ? $ElTreeButtC : '';
-    $LoginBgColor = isset($LoginBgColor) ? $LoginBgColor : '';
-    $NavBgColor = isset($NavBgColor) ? $NavBgColor : $PrimaryColor;
-    $NavDropBgHColor = isset($NavDropBgHColor) ? $NavDropBgHColor : $PrimaryColor;
+    //Colors
+    $PrimaryColor = $PrimaryColor ?? '';
+    $TreeLinksC = $TreeLinksC ?? '';
+    $DarkTreeLinksColor = $DarkTreeLinksColor ?? '';
+    $TreeButtC = $TreeButtC ?? $PrimaryColor;
+    $ElTreeButtC = $ElTreeButtC ?? '';
+    $LoginBgColor = $LoginBgColor ?? '';
+    $NavBgColor = $NavBgColor ?? $PrimaryColor;
+    $NavDropBgHColor = $NavDropBgHColor ?? $PrimaryColor;
     
     //logos
-    $CustomLogoPath = isset($CustomLogoPath) ? $CustomLogoPath : '';
+    $CustomLogoPath = $CustomLogoPath ?? '';
     
     /*****************login*************/
     $sitename = $modx->getPlaceholder('site_name');
@@ -48,9 +73,6 @@ else {
             body{background-color: '.$LoginBgColor.';}
             body div.page{background-color: '.$LoginBgColor.';}
             '; 
-        }
-        else {
-            $styleLoginBg = '';   
         }
 
         if ($ShowLoginLogo == 'hide') {
@@ -62,7 +84,7 @@ else {
         <style>
         '.$styleLoginBg.'
         '.$stylelogodisplay.'
-        '.$modx->getChunk(''.$CustomLoginStyle.'').'
+        '.$modx->getChunk($CustomLoginStyle).'
         </style>
         <!----- end managercolor--!>  
         ';
@@ -77,58 +99,50 @@ else {
         }   
 
         $styleDarkTreeLinksColor = '';
-            if (!empty($TLinkColor) && empty($TDarkLinkColor)) {
-            // Se c'è solo TLinkColor, usalo per DarkTreeLinksColor
+        if (!empty($TLinkColor) && empty($TDarkLinkColor)) {
             $DarkTreeLinksColor = $TLinkColor;
             $styleDarkTreeLinksColor = '.dark #treeMenu .treeButton, .dark .treeframebody .tab-pane input.form-control, .dark #treeRoot a:not(.deleted):not(.unpublished):not(.hidemenu) .title,
             .darkness #treeMenu .treeButton, .darkness .treeframebody .tab-pane input.form-control, .darkness #treeRoot a:not(.deleted):not(.unpublished):not(.hidemenu) .title {color: '.$DarkTreeLinksColor.'!important; }';
-            } else if (!empty($TDarkLinkColor)) {
-    // Se c'è TDarkLinkColor, usalo indipendentemente da TLinkColor
+        } else if (!empty($TDarkLinkColor)) {
             $DarkTreeLinksColor = $TDarkLinkColor;
             $styleDarkTreeLinksColor = '.dark #treeMenu .treeButton, .dark .treeframebody .tab-pane input.form-control, .dark #treeRoot a:not(.deleted):not(.unpublished):not(.hidemenu) .title,
             .darkness #treeMenu .treeButton, .darkness .treeframebody .tab-pane input.form-control, .darkness #treeRoot a:not(.deleted):not(.unpublished):not(.hidemenu) .title {color: '.$DarkTreeLinksColor.'!important; }';
-         }
-// Se nessuno dei due è impostato, $styleDarkTreeLinksColor rimane vuoto e non viene generato CSS
+        }
+
         if (!empty($ElTreeButtC)) {
             $styleElTreeButtC = '.treeframebody .tab-row h2.tab span i  {color: '.$ElTreeButtC.'!important; }';
         }
+        
         //top frame - Nav bar
-        if (empty($NavBgColor)) {
-            $mainMenuColor = $PrimaryColor;
-        }
-        else {
-            $mainMenuColor = $NavBgColor;
-        }
+        $mainMenuColor = empty($NavBgColor) ? $PrimaryColor : $NavBgColor;
         
         //Navbar Logo
         if ($ShowNavLogo == 'hide') {
             $stylenavlogodisplay = 'body #mainMenu [data-evocp="bgmColor"] #nav #site::before, #mainMenu #nav #site::before {display:none;} @media (min-width: 1200px) {
                 #mainMenu #nav #site a {margin-left:0;} }';    
         }
-        if ($ShowNavLogo == 'blacktext') {
+        else if ($ShowNavLogo == 'blacktext') {
             $stylenavlogodisplay = 'body #mainMenu [data-evocp="bgmColor"] #nav #site::before, #mainMenu #nav #site::before, body.lightness #mainMenu #nav #site::before {background: url("media/style/default/images/misc/logo-navbar.png") 0 50% no-repeat; background-size: 8rem; }';    
         }
-        if ($ShowNavLogo == 'whitetext') {
+        else if ($ShowNavLogo == 'whitetext') {
             $stylenavlogodisplay = 'body #mainMenu [data-evocp="bgmColor"] #nav #site::before, #mainMenu #nav #site::before, body.lightness #mainMenu #nav #site::before {background: url("media/style/default/images/misc/logo-navbar-white.png") 0 50% no-repeat; background-size: 8rem; }';   
         } 
-        if ($ShowNavLogo == 'smallblack') {
+        else if ($ShowNavLogo == 'smallblack') {
             $stylenavlogodisplay = 'body #mainMenu [data-evocp="bgmColor"] #nav #site::before, #mainMenu #nav #site::before, body.lightness #mainMenu #nav #site::before {left: 0; top: 0.25rem; width: 100%; height: 2.0rem; background: url("media/style/default/images/misc/logo-navbar-left.png") no-repeat 0 50%; background-size: 2.0rem;} @media (min-width: 1200px) {
                 #mainMenu #nav #site a {margin-left:3.0rem;;} }';  
         } 
-        if ($ShowNavLogo == 'smallwhite') {
+        else if ($ShowNavLogo == 'smallwhite') {
             $stylenavlogodisplay = 'body #mainMenu [data-evocp="bgmColor"] #nav #site::before, #mainMenu #nav #site::before, body.lightness #mainMenu #nav #site::before {left: 0; top: 0.25rem; width: 100%; height: 2.0rem; background: url("media/style/default/images/misc/logo-navbar-left-white.png") no-repeat 0 50%; background-size: 2.0rem;} @media (min-width: 1200px) {
                 #mainMenu #nav #site a {margin-left:3.0rem;;} }';  
         }
-        if ($CustomLogoPath !== '' && $ShowNavLogo == 'customwide') {
+        else if ($CustomLogoPath !== '' && $ShowNavLogo == 'customwide') {
             $stylelogocustom = 'body #mainMenu [data-evocp="bgmColor"] #nav #site::before, #mainMenu #nav #site::before, body.lightness #mainMenu #nav #site::before {background: url("'.$CustomLogoPath.'") 0 50% no-repeat; background-size: 8rem; }';
         }
-        if ($CustomLogoPath !== '' && $ShowNavLogo == 'customsquare') {
+        else if ($CustomLogoPath !== '' && $ShowNavLogo == 'customsquare') {
             $stylelogocustom = 'body #mainMenu [data-evocp="bgmColor"] #nav #site::before, #mainMenu #nav #site::before, body.lightness #mainMenu #nav #site::before {left: 0; top: 0.25rem; width: 100%; height: 2.0rem; background: url("'.$CustomLogoPath.'") no-repeat 0 50%; background-size: 2.0rem;} @media (min-width: 1200px) {
                 #mainMenu #nav #site a {margin-left:3.0rem;;} }';
         }
-        if ($ShowNavLogo == 'default') {
-            $stylelogocustom = '';
-        }
+
         $topcssOutput = '
         <!-----managercolor TopPrerender--!>
         <style>
@@ -142,7 +156,7 @@ else {
         .lightness #mainMenu [data-evocp="bgmColor"] .nav > li.active > a {background: rgba(255, 255, 255, 0.07);}  
         '.$stylelogocustom.'
         '.$stylenavlogodisplay.'
-        '.$modx->getChunk(''.$CustomNavStyle.'').'
+        '.$modx->getChunk($CustomNavStyle).'
         .treeButton i, .treeButtonDisabled i , #mx_contextmenu .menuLink i,
         div#treeHolder a i:hover, .treeButton i:hover, .treeButtonDisabled i:hover, .tab-page ul.actionButtons li a, #treePane .tab-page .actionButtons a:hover, #treePane .tab-page .actionButtons a:hover i 
         {color: '.$TreeButtC.'!important;}
@@ -236,7 +250,7 @@ else {
         .wm_buttons a { color: #576B75 !important;}
         '.$stylecoloredButtons.'
 
-        '.$modx->getChunk(''.$CustomMainStyle.'').'
+        '.$modx->getChunk($CustomMainStyle).'
         </style>
         <!-----end managercolor--!>
         ';
@@ -244,7 +258,9 @@ else {
 
     $manager_theme = $modx->config['manager_theme'];
     if($manager_theme == "default") {
-        $output .= $logincssOutput.$maincssOutput.$topcssOutput;
+        $output .= $logincssOutput ?? '';
+        $output .= $maincssOutput ?? '';
+        $output .= $topcssOutput ?? '';
     }
     $e->output($output);
     return;
