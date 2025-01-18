@@ -2,7 +2,7 @@
 /**
  * ManagerColors plugin 
  * Customize Evolution CMS Default Manager theme colors
- * version    4.1.0
+ * version    4.1.1
  * Events: OnManagerLoginFormPrerender,OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
  */
 
@@ -34,7 +34,17 @@ class ManagerColors {
         
         error_log('ManagerColors Modules State: ' . print_r($this->modules, true));
     }
+    private function hexToRgb($hex) {
+    // Rimuove il # se presente
+    $hex = str_replace('#', '', $hex);
     
+    // Converte in RGB
+    $r = hexdec(substr($hex, 0, 2));
+    $g = hexdec(substr($hex, 2, 2));
+    $b = hexdec(substr($hex, 4, 2));
+    
+    return $r.', '.$g.', '.$b;
+    }
     private function getParamValue($key, $default = '') {
         return isset($this->modx->event->params[$key]) ? $this->modx->event->params[$key] : $default;
     }
@@ -51,6 +61,9 @@ class ManagerColors {
     private function loadConfig() {
     // Colore base principale
     $primaryColor = $this->getParamValue('PrimaryColor', '#0e80cb');
+
+    $loginBoxBgColor = $this->modules['login'] ? $this->getParamValue('LoginBoxBgColor', '#FFFFFF') : '';
+    $loginBoxBgColorRGBA = !empty($loginBoxBgColor) ? $this->hexToRgb($loginBoxBgColor) : '';
 
     $this->config = [
         // Colore base
@@ -81,6 +94,10 @@ class ManagerColors {
         
         // Colori login (caricati solo se il modulo è attivo)
         'LoginBgColor' => $this->modules['login'] ? $this->getParamValue('LoginBgColor', '') : '',
+        'LoginBoxBgColor' => $this->modules['login'] ? $this->getParamValue('LoginBoxBgColor', '#FFFFFF') : '',
+        'LoginBoxOpacity' => $this->modules['login'] ? $this->getParamValue('LoginBoxOpacity', '0.5') : '',
+        'LoginBoxTxtColor' => $this->modules['login'] ? $this->getParamValue('LoginBoxTxtColor', '') : '',
+        'LoginBoxBgColorRGBA' => $loginBoxBgColorRGBA,
         
         // Features sempre disponibili
         'ShowLoginLogo' => $this->getParamValue('ShowLoginLogo', 'default'),
@@ -94,11 +111,13 @@ class ManagerColors {
         'CustomMainStyle' => $this->getParamValue('CustomMainStyle', '')
     ];
 }
-
+    
     public function handleLogin() {
-        $output = '';
-        // Login background (solo se gli stili login sono abilitati)
-        if ($this->modules['login'] && !empty($this->config['LoginBgColor'])) {
+    $output = '';
+    
+    // Login background (solo se gli stili login sono abilitati)
+    if ($this->modules['login']) {
+        if (!empty($this->config['LoginBgColor'])) {
             $output .= '
             /* Login Background */
             body {
@@ -106,6 +125,21 @@ class ManagerColors {
             }
             body div.page {
                 background-color: '.$this->config['LoginBgColor'].';
+            }';
+        }
+        
+        if (!empty($this->config['LoginBoxBgColor'])) {
+            $output .= '
+            /* Login Box */
+            .loginbox {
+                color: '.$this->config['LoginBoxTxtColor'].'!important;
+                background-color: rgba('.$this->config['LoginBoxBgColorRGBA'].', '.$this->config['LoginBoxOpacity'].')!important;
+            }
+            
+            .loginbox.loginbox-dark label.text-muted, .loginbox.loginbox-dark label#FMP-email_label,
+            .loginbox.loginbox-light label.text-muted, .loginbox.loginbox-light label#FMP-email_label, .loginbox.loginbox-light input#username,
+            a#ForgotManagerPassword-show_form  { 
+                color: '.$this->config['LoginBoxTxtColor'].'!important;
             }';
         }
 
@@ -117,9 +151,10 @@ class ManagerColors {
                 display: none;
             }';
         }
-
-        return $this->wrapStyles($output, 'LoginFormPrerender');
     }
+    
+    return $this->wrapStyles($output, 'LoginFormPrerender');
+}
     public function handleNavbar() {
         $output = '';
         
