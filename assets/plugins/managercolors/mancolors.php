@@ -423,12 +423,12 @@ class ManagerColors {
         input[type="button"], input[type="submit"] {
             border-color: '.$this->config['PrimaryColor'].';
         }
-        button.btn-primary, a.btn-primary {
+        button.btn-primary, a.btn-primary, .darkness button.btn-primary, .darkness a.btn-primary {
             background: '.$this->config['PrimaryButtonsColor'].';
             border-color: '.$this->config['PrimaryButtonsColor'].'; 
             color: #FFF!important;
         }
-        button.btn-primary:hover, a.btn-primary:hover {
+        button.btn-primary:hover, a.btn-primary:hover, .darkness button.btn-primary:hover, .darkness a.btn-primary:hover {
             background: '.$this->config['PrimaryButtonsHColor'].';
             border-color: '.$this->config['PrimaryButtonsHColor'].'; 
             color: #FFF!important;
