@@ -62,7 +62,7 @@ class ManagerColors {
     // Colore base principale
     $primaryColor = $this->getParamValue('PrimaryColor', '#0e80cb');
 
-    $loginBoxBgColor = $this->modules['login'] ? $this->getParamValue('LoginBoxBgColor', '#FFFFFF') : '';
+    $loginBoxBgColor = $this->modules['login'] ? $this->getParamValue('LoginBoxBgColor', $primaryColor) : '';
     $loginBoxBgColorRGBA = !empty($loginBoxBgColor) ? $this->hexToRgb($loginBoxBgColor) : '';
 
     $this->config = [
@@ -70,14 +70,14 @@ class ManagerColors {
         'PrimaryColor' => $primaryColor,
         
         // Colori navbar (caricati solo se il modulo è attivo)
-        'NavBgColor' => $this->modules['navbar'] ? $this->getParamValue('NavBgColor', '') : '',
-        'NavLinkColor' => $this->modules['navbar'] ? $this->getParamValue('NavLinkColor', '') : '',
-        'NavLinkHColor' => $this->modules['navbar'] ? $this->getParamValue('NavLinkHColor', '') : '',
+        'NavBgColor' => $this->modules['navbar'] ? $this->getParamValue('NavBgColor', '') : $primaryColor,
+        'NavLinkColor' => $this->modules['navbar'] ? $this->getParamValue('NavLinkColor', '#e5eef5') : '#e5eef5',
+        'NavLinkHColor' => $this->modules['navbar'] ? $this->getParamValue('NavLinkHColor', '#fff') : '#fff',
         'NavDropBgHColor' => $this->modules['navbar'] ? $this->getParamValue('NavDropBgHColor', $primaryColor) : '',
-        'NavLinkLActColor' => $this->modules['navbar'] ? $this->getParamValue('NavLinkLActColor', '') : '',
+        'NavLinkLActColor' => $this->modules['navbar'] ? $this->getParamValue('NavLinkLActColor', '#222') : '#222',
         
         // Colori tree (caricati solo se il modulo è attivo con PrimaryColor come default)
-        'TreeButtC' => $this->modules['tree'] ? $this->getParamValue('TreeButtC', $primaryColor) : '',
+        'TreeButtC' => $this->modules['tree'] ? $this->getParamValue('TreeButtC', $primaryColor) : $primaryColor,
         'TreeLinksColor' => $this->modules['tree'] ? $this->getParamValue('TreeLinksColor', '') : '',
         'TLinkColor' => $this->modules['tree'] ? $this->getParamValue('TLinkColor', $primaryColor) : '',
         'TDarkLinkColor' => $this->modules['tree'] ? $this->getParamValue('TDarkLinkColor', '') : '',
@@ -94,9 +94,9 @@ class ManagerColors {
         
         // Colori login (caricati solo se il modulo è attivo)
         'LoginBgColor' => $this->modules['login'] ? $this->getParamValue('LoginBgColor', '') : '',
-        'LoginBoxBgColor' => $this->modules['login'] ? $this->getParamValue('LoginBoxBgColor', '#FFFFFF') : '',
-        'LoginBoxOpacity' => $this->modules['login'] ? $this->getParamValue('LoginBoxOpacity', '0.5') : '',
-        'LoginBoxTxtColor' => $this->modules['login'] ? $this->getParamValue('LoginBoxTxtColor', '') : '',
+        'LoginBoxBgColor' => $this->modules['login'] ? $this->getParamValue('LoginBoxBgColor', $primaryColor) : '',
+        'LoginBoxOpacity' => $this->modules['login'] ? $this->getParamValue('LoginBoxOpacity', '0.8') : '',
+        'LoginBoxTxtColor' => $this->modules['login'] ? $this->getParamValue('LoginBoxTxtColor', '#FFFFFF') : '',
         'LoginBoxBgColorRGBA' => $loginBoxBgColorRGBA,
         
         // Features sempre disponibili
@@ -156,15 +156,8 @@ class ManagerColors {
     return $this->wrapStyles($output, 'LoginFormPrerender');
 }
     public function handleNavbar() {
+
         $output = '';
-        
-        // Debug info
-        $output .= '
-        /* Debug values */
-        /* Module States - Navbar: '.($this->modules['navbar'] ? 'enabled' : 'disabled').' */
-        /* Module States - Tree: '.($this->modules['tree'] ? 'enabled' : 'disabled').' */
-        /* PrimaryColor: '.$this->config['PrimaryColor'].' */
-        /* NavBgColor: '.$this->config['NavBgColor'].' */';
         
         if ($this->modules['navbar']) {
             $mainMenuColor = $this->getNavbarBackgroundColor();
