@@ -2,7 +2,7 @@
 /**
  * ManagerColors plugin 
  * Customize Evolution CMS Default Manager theme colors
- * version    4.1.2
+ * version    4.1.3
  * Events: OnManagerLoginFormPrerender,OnManagerMainFrameHeaderHTMLBlock,OnManagerTopPrerender
  */
 
@@ -29,6 +29,7 @@ class ManagerColors {
             'navbar' => $this->getParamValue('mc_enable_navbar_styles', 'yes') === 'yes',
             'tree' => $this->getParamValue('mc_enable_tree_styles', 'yes') === 'yes',
             'mainframe' => $this->getParamValue('mc_enable_main_styles', 'yes') === 'yes',
+            'dashboard' => $this->getParamValue('mc_enable_dashboard_styles', 'yes') === 'yes',
             'login' => $this->getParamValue('mc_enable_login_styles', 'yes') === 'yes'
         ];
         
@@ -83,9 +84,11 @@ class ManagerColors {
         'TDarkLinkColor' => $this->modules['tree'] ? $this->getParamValue('TDarkLinkColor', '') : '',
         'ElTreeButtC' => $this->modules['tree'] ? $this->getParamValue('ElTreeButtC', $primaryColor) : '',
         
-        // Colori Bottoni Welcome Page
+        // Welcome Page
         'WelcomeButtonsColor' => $this->modules['mainframe'] ? $this->getParamValue('WelcomeButtonsColor', '') : '',
         'WelcomeButtonsHColor' => $this->modules['mainframe'] ? $this->getParamValue('WelcomeButtonsHColor', '') : '',
+        'WidgetHeaderBg' => $this->modules['mainframe'] ? $this->getParamValue('WidgetHeaderBg', '') : '',
+        'WidgetHeaderColor' => $this->modules['mainframe'] ? $this->getParamValue('WidgetHeaderColor', '') : '',
         
         // Colori main frame (caricati solo se il modulo è attivo)
         'PrimaryButtonsColor' => $this->modules['mainframe'] ? $this->getParamValue('PrimaryButtonsColor', $primaryColor) : '',
@@ -427,7 +430,7 @@ class ManagerColors {
     if ($this->config['buttonsColor'] === 'yes') {
         $output .= $this->generateColoredButtonsStyle();
     }
-    
+
     // Main frame styles
     if ($this->modules['mainframe']) {
         if (!empty($this->config['MainLinkColor'])) {
@@ -440,13 +443,6 @@ class ManagerColors {
         }
         
         $output .= '
-        /* Welcome Dashboard */
-        .card .wm_buttons .wm_button a i { 
-        color: '.$this->config['WelcomeButtonsColor'].'!important; 
-        }
-        .card .wm_buttons .wm_button a:hover i {
-        color: '.$this->config['WelcomeButtonsHColor'].'!important; 
-        }
         /* Buttons and inputs */
         input[type="button"], input[type="submit"] {
             border-color: '.$this->config['PrimaryColor'].';
@@ -482,13 +478,23 @@ class ManagerColors {
         h1 .fa {
             color: '.$this->config['PrimaryColor'].'!important;
         }
-        
-        /* Work Manager buttons */
-        .wm_buttons a { 
-            color: #576B75 !important;
-        }';
+        ';
     }
-    
+     // Dashboard styles
+    if ($this->modules['dashboard']) {
+    $output .= '
+        /* Welcome Dashboard */
+        .widgets .card .wm_buttons .wm_button a i { 
+        color: '.$this->config['WelcomeButtonsColor'].'!important; 
+        }
+        .widgets .card .wm_buttons .wm_button a:hover i {
+        color: '.$this->config['WelcomeButtonsHColor'].'!important; 
+        }
+        .widgets .card .card-header {
+        background: '.$this->config['WidgetHeaderBg'].'!important;
+        color: '.$this->config['WidgetHeaderColor'].'!important; 
+        }';
+    }    
     return $this->wrapStyles($output, 'MainFrameHeaderHTMLBlock');
 }
 
